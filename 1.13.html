@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<!-- 1.13 创建一个新闻主页 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Loads of News - the best news site there ever was</title>
+<style>
+header, nav, section, artcle, footer {
+	display: block;
+}
+
+heaser, nav {
+	border-bottom: 1px dotted #000;
+	cleaf: both;
+	width: 100%
+}
+
+nav li {
+	display: inline;
+}
+
+section#headline {
+	clear: both;
+	border: 5px solid #000;
+	padding: 1%;
+	width: 100%;
+}
+
+section#sports, section#entertainment, section#nerdy {
+	float: left;
+	margin: 0 5px;
+	padding: 1%;
+	width: 30%
+}
+
+aside,footer {
+	clear: both;
+}
+
+aside img {
+	border: 1px solid #ccc;
+	margin: 0 10px 0 0;
+}
+</style>
+<script src="my-javascript-file.js"></script>
+<link rel="stylesheet" href="my-css-file.css" />
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<header>
+		<hgroup>
+			<h1>Loads of News</h1>
+			<h2>Bringing you all kinds of news</h2>
+		</hgroup>
+	</header>
+	<nav>
+		<ul>
+			<li><a href="#">Home</a></li>
+			<li><a href="#">Sports news</a></li>
+			<li><a href="#">Entertainment news</a></li>
+			<li><a href="#">Nerdy news</a></li>
+			<li><a href="#">About</a></li>
+		</ul>
+	</nav>
+	<section id="headline">
+		<h1>Headline article</h1>
+		<article>
+			<header>
+				<h2>
+					<a href="#">This is our most important article</a>
+				</h2>
+				<p>10th November 2010</p>
+			</header>
+			<p>Pellentesque habitant morbi tristique senectus et netus et
+				malesuada fames ac turpis egestas.</p>
+		</article>
+	</section>
+	<section id="sports">
+		<h1>Sports news</h1>
+		<article>
+			<!-- (x3) -->
+			<header>
+				<h2>
+					<a href="#">Sports headline 1</a>
+				</h2>
+				<p>10th November 2010</p>
+			</header>
+			<p>Pellentesque habitant morbi tristique senectus et netus et
+				malesuada fames ac turpis egestas.</p>
+		</article>
+		<article>
+			<!-- (x3) -->
+			<header>
+				<h2>
+					<a href="#">Sports headline 2</a>
+				</h2>
+				<p>10th November 2010</p>
+			</header>
+			<p>Pellentesque habitant morbi tristique senectus et netus et
+				malesuada fames ac turpis egestas.</p>
+		</article>
+		<article>
+			<!-- (x3) -->
+			<header>
+				<h2>
+					<a href="#">Sports headline 3</a>
+				</h2>
+				<p>10th November 2010</p>
+			</header>
+			<p>Pellentesque habitant morbi tristique senectus et netus et
+				malesuada fames ac turpis egestas.</p>
+		</article>
+	</section>
+	<section id="entertainment">
+		<h1>Entertainment news</h1>
+		<article>
+			<!-- (x3) -->
+			<header>
+				<h2>
+					<a href="#">Entertainment headline 1</a>
+				</h2>
+				<p>10th November 2010</p>
+			</header>
+			<p>Pellentesque habitant morbi tristique senectus et netus et
+				malesuada fames ac turpis egestas.</p>
+		</article>
+		<article>
+			<!-- (x3) -->
+			<header>
+				<h2>
+					<a href="#">Entertainment headline 2</a>
+				</h2>
+				<p>10th November 2010</p>
+			</header>
+			<p>Pellentesque habitant morbi tristique senectus et netus et
+				malesuada fames ac turpis egestas.</p>
+		</article>
+		<article>
+			<!-- (x3) -->
+			<header>
+				<h2>
+					<a href="#">Entertainment headline 3</a>
+				</h2>
+				<p>10th November 2010</p>
+			</header>
+			<p>Pellentesque habitant morbi tristique senectus et netus et
+				malesuada fames ac turpis egestas.</p>
+		</article>
+	</section>
+	<section id="nerdy">
+		<h1>Nerdy news</h1>
+		<article>
+			<!-- (x3) -->
+			<header>
+				<h2>
+					<a href="#">Nerdy headline 1</a>
+				</h2>
+				<p>10th November 2010</p>
+			</header>
+			<p>Pellentesque habitant morbi tristique senectus et netus et
+				malesuada fames ac turpis egestas.</p>
+		</article>
+		<article>
+			<!-- (x3) -->
+			<header>
+				<h2>
+					<a href="#">Nerdy headline 2</a>
+				</h2>
+				<p>10th November 2010</p>
+			</header>
+			<p>Pellentesque habitant morbi tristique senectus et netus et
+				malesuada fames ac turpis egestas.</p>
+		</article>
+		<article>
+			<!-- (x3) -->
+			<header>
+				<h2>
+					<a href="#">Nerdy headline 3</a>
+				</h2>
+				<p>10th November 2010</p>
+			</header>
+			<p>Pellentesque habitant morbi tristique senectus et netus et
+				malesuada fames ac turpis egestas.</p>
+		</article>
+	</section>
+	<aside>
+		<ul>
+			<li><a href="#"><img alt="Snazzy advert"
+					src="snazzy-advert.gif" height="128" width="128"></a></li>
+			<li><a href="#"><img alt="Snazzy advert"
+					src="snazzy-advert.gif" height="128" width="128"></a></li>
+			<li><a href="#"><img alt="Snazzy advert"
+					src="snazzy-advert.gif" height="128" width="128"></a></li>
+			<li><a href="#"><img alt="Snazzy advert"
+					src="snazzy-advert.gif" height="128" width="128"></a></li>
+		</ul>
+	</aside>
+	<footer>
+		<ul>
+			<li>Site powered by a <a href="#">CMS With No Name</a></li>
+			<li>Site hosted by a <a href="#">Host With No Name</a></li>
+			<li>The photos on this site are all owned by the photographer</li>
+		</ul>
+		<small>&copy;Copyright NoBody 2011</small>
+	</footer>
+</body>
+</html>

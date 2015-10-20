@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!-- 3.8 借助Modernize选择CSS样式 -->
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Modernizr CSS</title>
+<script src="../scripts/modernizr-1.7.js"></script>
+<style>
+div.storageNo, div.storageYes {
+	display: none;
+}
+
+.no-sessionstorage div.storageNo {
+	display: block;
+}
+
+.sessionstorage div.storageYes {
+	display: block;
+}
+</style>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<div class="storageNo">SessionStorage is not supported.</div>
+	<div class="storageYes">SessionStorage is supported.</div>
+</body>
+</html>

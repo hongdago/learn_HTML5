@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!-- 2.15 Microdata示例 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<script src="my-javascript-file.js"></script>
+<link rel="stylesheet" href="my-css-file.css" />
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<article itemscope itemtype="http://data-vocabulary.org/Person">
+		<h1 itemprop="name">Tom Leadbetter</h1>
+		<p>
+			<span itemprop="address" itemscope
+				itemtype="http://data-vocabulary.org/Address">I live in <span
+				itemprop="region">Liverpool</span>,<span itemprop="country-name">UK</span>.
+			</span>
+		</p>
+
+		<p>
+			I am a <span itemprop="title">Space Cowboy</span> at <span
+				itemprop="affiliation">Space Cowboy INC.</span>.I also hava a
+			website:<a href="http://www/tomleadbetter.co.uk" itemprop="url">tomleadbetter.co.uk</a>
+		</p>
+	</article>
+</body>
+</html>

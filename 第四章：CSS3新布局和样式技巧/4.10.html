@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!-- 4.10 按钮渐变效果 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<script src="my-javascript-file.js"></script>
+<style>
+input {
+	border: none;
+	-webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, .4);
+	box-shadow: 0 1px 5px rgba(0, 0, 0, .4);
+	-webkit-border-radius: 10px;
+	border-redius: 1opx;
+	cursor: pointer;
+	color: #fff;
+	font: bold 1.2em Arial, Helvetica, sans-serif;
+	margin: 0 10px 0 0;
+	padding: 10px 10px 10px 30px;
+	text-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+input[type="submit"] {
+	background: url(accept.png) 8px 55% no-repeat #91BD09;
+	background: url(accept.png) 8px 55% no-repeat,
+		-webkit-linear-grandient(#91BD09, #578730);
+	background: url(accept.png) 8px 55% no-repeat,
+		-moz-linear-grandient(#91BD09, #578730);
+	background: url(accept.png) 8px 55% no-repeat,
+		linear-grandient(#91BD09, #578730);
+}
+
+input[value="Cancel"]{
+background:url(cross.png) 8px 55% no-repeat #b53109;
+background:url(cross.png) 8px 55% no-repeat ,-webkit-linear-gradient(#b53109,#540303);
+background:url(cross.png) 8px 55% no-repeat ,-mox-linear-gradient(#b53109,#540303);
+background:url(cross.png) 8px 55% no-repeat ,-linear-gradient(#b53109,#540303);
+}
+
+input[type="reset"]{
+background:url(error.png) 8px 55% no-repeat #f0bb18;
+background:url(error.png) 8px 55% no-repeat ,-webkit-linear-gradient(#f0bb18,#a46b07);
+background:url(error.png) 8px 55% no-repeat ,-mox-linear-gradient(#f0bb18,#a46b07);
+background:url(error.png) 8px 55% no-repeat ,-linear-gradient(#f0bb18,#a46b07);
+}
+
+</style>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<input type="submit" value="Submit"/>
+	<input type="button" value="Cancel"/>
+	<input type="reset"  value="Reset"/>
+</body>

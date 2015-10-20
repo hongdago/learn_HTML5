@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!-- 5.1 多种表单元素的页面 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<script src="my-javascript-file.js"></script>
+<link rel="stylesheet" href="my-css-file.css" />
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<form>
+		<fieldset>
+			<legend>Fieldset legend - a caption/title for this set of
+				fields</legend>
+			<ul>
+				<li><label for="normal">Normal input box</label> <input
+					id="normal" type="text" value="a 'normal' input box" /></li>
+				<li><input id="checkbox" type="checkbox" /><label
+					for="checkbox">I'm a checkbox</label></li>
+				<li><input id="radio" type="radio" /><label for="radio">I'm
+						a radio button</label></li>
+				<li><label for="file">Upload</label><input id="file"
+					type="file" /></li>
+				<li><label for="password">Password</label><input id="password"
+					type="password" value="mypassword" /></li>
+				<li><label for="textarea">Textarea</label>
+				<textarea id="textarea" rows="5" cols="400">This is a textarea</textarea></li>
+				<li><label for="select">Select</label><select id="select">
+						<option>Option 1</option>
+						<option>Option 2</option>
+						<option>Option 3</option>
+						<option>Option 4</option>
+				</select></li>
+				<li><input type="submit" value="Submit" /></li>
+				<li><input type="reset" value="Reset" /></li>
+			</ul>
+		</fieldset>
+	</form>
+</body>
+</html>

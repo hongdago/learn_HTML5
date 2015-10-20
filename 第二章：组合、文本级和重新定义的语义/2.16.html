@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!-- 2.16 带评论的文章 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Blog comments</title>
+<style>
+[role=banner] h1 {background；#133;color:#fff;padding:5px;}
+[role=main] h1 {border-bottom:2px dotted #333;color:#333;}
+b {float:left;font-family:"Palation Linotype",Palation,serif;font-size:2.5em;
+	font-style:italic;font-weight:bold;line-height:1;margin:0 5px 5px 0;}
+</style>
+<script src="my-javascript-file.js"></script>
+<link rel="stylesheet" href="my-css-file.css" />
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<h1 role="banner">Tom's blog</h1>
+	<article role="main">
+	<header>
+		<h1>Title of my article</h1>
+		<time pubdate datetime="2010-12-12">Sunday,12th December 2010</time>
+		<p><b>P</b>ellentesque habitant morbi tristrique senextus et netus et
+		malesuada fames ac turpis egestas,Vestibulum tortor ...</p>
+	</header>
+	<section>
+	<h2>Comments</h2>
+	<ol reversed>
+	<li>
+		<article>
+		<h3><time datetime="2010-12-13T11:15Z">13/12/2010 11:15</time></h3>
+		<footer>Comment by<address><a href="http://tomleadbetter.co.hk">Tom Leadbetter</a></address></footer>
+		<p>What a splendid article!</p>
+		</article>
+	</li>
+	<li>
+		<article>
+		<h3><time datetime="2010-12-13T11:15Z">13/12/2010 11:15</time></h3>
+		<footer>Comment by anoaymous</footer>
+		<p>That was rubbish.</p>
+		</article>
+	</li>
+	</ol>
+	</section>
+	</article>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- 4.15 悬停时的图片缩放动画 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<script src="my-javascript-file.js"></script>
+<link rel="stylesheet" href="my-css-file.css" />
+<style>
+img{
+background:#fff;
+border:1px solid #BFBFBF;
+display:block;
+float:left;
+height:125px;
+margin:0 10px 0 0;
+padding:5px;
+width:125px;
+-webkit-box-shadow:2px 2px 4px rgba(0,0,0,0.3);
+-moz-box-shadow:2px 2px 4px rgba(0,0,0,0.3);
+box-shadow:2px 2px 4px rgba(0,0,0,0.3);
+-webkit-transition:all 1s ease-in-out;
+-moz-transition:all 1s ease-in-out;
+-o-transition:all 1s ease-in-out;
+}
+img:hover{
+-webkit-transform:rotate(10deg) scale(2);
+-moz-transform:rotate(10deg) scale(2);
+-o-transform:rotate(10deg) scale(2);
+-ms-transform:rotate(10deg) scale(2);
+transform:rotate(10deg) scale(2);
+}
+
+</style>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<article>
+		<header>This is img </header>
+		<p>############################################################################</p>
+		<img alt="" src="beach.jpg"/>
+	</article>
+	<img alt="" src="beach.jpg"/>
+</body>
+</html>

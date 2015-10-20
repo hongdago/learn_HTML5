@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!-- 3.10 Modernizr检查备用就Query Calendar -->
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Let's go Modernizr</title>
+<script src="../scripts/modernizr-1.7.js"></script>
+<script src="../scripts/jquery-2.1.4.min.js"></script>
+<script src="../scripts/jquery-ui.min.js"></script>
+<link href="../scripts/jquery-ui.css" rel="stylesheet" media="screen"/>
+<script>
+	$(function() {
+		//check to see browser does not support input type
+		if (!Modernizr.inputtypes.date) {
+			$('input[type=date]').datepicker({
+				dateFormat : 'yy-mm-dd'
+			});
+		}
+
+	});
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<form>
+		<label for="date">What date do you leave?</label><input required
+			type="date" id="date" name="date" /> <input type="submit"
+			value="Submit" />
+	</form>
+</body>
+</html>

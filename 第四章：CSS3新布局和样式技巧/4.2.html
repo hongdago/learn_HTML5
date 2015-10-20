@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!-- 4.2 css文件中的媒介查询 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<script src="my-javascript-file.js"></script>
+<style>
+body {background:black;color:#ffff;font:normal 62.5%/1.5 tahoma,verdana,sans-serif;}
+h1 {font-size:2em;}
+p {font-size:1.4em;}
+
+/*style for smartphones and very small screen resolution */
+@media only screen and (min-width:320px) and (max-width:400px)
+{
+body {background:blue;}
+}
+
+/*style for screen resolutions bigger than smartphones but smaller or equal to 1024px*/
+@media only screen and (min-widht:401px) and (max-width:1024px)
+{
+body {background:red;}
+}
+
+/*styles for screen resolutions for a very wide resolution*/
+@media only screen and (min-width:2000px)
+{
+body {background:green;}
+}
+</style>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+</body>
+</html>

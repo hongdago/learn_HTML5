@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- 4.10 css变换 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<script src="my-javascript-file.js"></script>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font: normal .9em arial, Helvetica, sans-serif;
+	position: relative;
+	padding: 30px 10px 10px 75px;
+	width: 600px;
+}
+
+h1 {
+	left: -100px;
+	position: absolute;
+	top: 160px;
+	text-align: left;
+	-webkit-transform: rotate(270deg);
+	-moz-transform: rotate(270deg);
+	-o-transform: rotate(270deg);
+	-ms-transform: rotate(270deg);
+	transform: rotate(270deg);
+}
+
+figure {
+	background: #fff;
+	border: 1px solid #BFBFBF;
+	-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+	display: block;
+	float: rigth;
+	margin: 20px 20px 50px 50px;
+	padding: 5px;
+	text-align: center;
+	-webkit-transform: rotate(10deg);
+	-moz-transform: rotate(10deg);
+	-o-transform: rotate(10deg);
+	-ms-transform: rotate(10deg);
+	transform: rotate(10deg);
+}
+
+figcaption {
+	clear: both;
+	display: block;
+	font-weight: bold;
+	padding: .5em 0;
+}
+
+p {
+	margin: 0 0 1em;
+}
+</style>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<h1>This is the page title</h1>
+	<p>Pellentesque habitant morbi tristique sen....</p>
+	<figure>
+		<img alt="Sandy beach" src="beach.jpg" />
+		<figcaption>The view from our hotel room</figcaption>
+	</figure>
+	<p>Pellentesque habitant morbi tristique sen....</p>
+</body>

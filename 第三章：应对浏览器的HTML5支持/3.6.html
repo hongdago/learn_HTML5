@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- 3.6 检查多种输入类型 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<script src="../scripts/jquery-2.1.4.min.js"></script>
+<script src="../scripts/jquery-ui.min.js"></script>
+<link href="../scripts/jquery-ui.css" rel="stylesheet" media="screen"/>
+<script>
+$(function(){
+	function inputSupport(inputType){
+		var input=document.createElement("input");
+		input.setAttribute("type",inputType);
+		var val=(input.type !== "text");
+		delete input;
+		return val;
+	}
+	if(!inputSupport("email")){
+		alert("the email input type is not supported");
+	}
+	
+});
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+</body>
+</html>

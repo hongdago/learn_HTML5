@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!-- 4.10 css变换 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<script src="my-javascript-file.js"></script>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font: normal .9em arial, Helvetica, sans-serif;
+	position: relative;
+	padding: 30px 10px 10px 75px;
+	width: 600px;
+}
+
+h1 {
+	transform: translate(100px, 200px);  /*重定位*/
+}
+
+h1 {
+	transform: skew(40deg);      /*倾斜*/
+}
+
+h1 {
+	transform: scale(2);        /*缩放*/   
+}
+/*You can also chain them together in a single declaration:*/
+h1 {
+	transform: translate(100px, 200px) skew(40deg) skew(2) rotate(4odeg);
+}
+</style>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<h1>This is the page title</h1>
+	<p>Pellentesque habitant morbi tristique sen....</p>
+	<figure>
+		<img alt="Sandy beach" src="beach.jpg" />
+		<figcaption>The view from our hotel room</figcaption>
+	</figure>
+	<p>Pellentesque habitant morbi tristique sen....</p>
+</body>

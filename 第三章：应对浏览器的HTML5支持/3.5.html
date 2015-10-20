@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!-- 3.5 使用jQuery Calendar作为备用 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Detect the date input type</title>
+<script src="../scripts/jquery-2.1.4.min.js"></script>
+<script src="../scripts/jquery-ui.min.js"></script>
+<link href="../scripts/jquery-ui.css" rel="stylesheet" media="screen"/>
+<script>
+	$(function() {
+		function inputSupport() {
+			var input = document.createElement("input");
+			input.setAttribute("type", "date");
+			var val = (input.type !== "text");
+			delete input;
+			return val;
+		}
+
+		if (!inputSupport() || ($.browser.webkit)) {
+			$('input[type=date]').datepicker();
+		}
+	});
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<form>
+		<label for="date">What date do you leave?</label><input required
+			type="date" id="date" name="date" /> <input type="submit"
+			value="Submit" />
+	</form>
+</body>
+</html>

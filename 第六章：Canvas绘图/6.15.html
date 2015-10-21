@@ -15,8 +15,8 @@
 
 	//chart settings
 	var chartMargin;
-	var chartAxisSpacel;
-	var chartWidthl;
+	var chartAxisSpace;
+	var chartWidth;
 	var chartHeight;
 
 	var numBars = 0; //total number of bars
@@ -54,7 +54,7 @@
 			'value' : '93'
 		}, {
 			'title' : 'Year 7',
-			'value' : '156'
+			'value' : '80'
 		}
 
 		]
@@ -92,11 +92,11 @@
 		}
 		
 		//determine the width of each bar
-		barWidth=(chartWidth/numBars)-barMaigin;
+		barWidth=(chartWidth/numBars)-barMargin;
 		//initialze animation variables
-		idxStep=0;
+		idxStep=100;
 		numSteps=100;
-		growSpeed=6;
+		growSpeed=1;
 	}
 	
 	function drawAxis(){
@@ -109,7 +109,7 @@
 		context.stroke()
 		
 		//draw x axis - form lower left to lower rigth
-		context.moveTo(charMargin+chartAxisSpace,chartMargin+chartHeight);
+		context.moveTo(chartMargin+chartAxisSpace,chartMargin+chartHeight);
 		context.lineTo(chartMargin+chartAxisSpace+chartWidth,chartMargin+chartHeight)
 		context.stroke();
 		
@@ -124,13 +124,77 @@
 		for(var i=0 ; i<=numYLabels;i++){
 			//Determine the label and X and Y points
 			markerLabel=i*markerAmount;
-			markerXPos=chartMargin+charAxisSpace-5;
+			markerXPos=chartMargin+chartAxisSpace-5;
 			markerYPos=chartMargin+(chartHeight-((i*markerAmount*chartHeight)/maxValue));
-			context.fillText(markerLabel,markerXPos,)
-			
+			context.fillText(markerLabel,markerXPos,markerYPos,chartAxisSpace);
 		}
 		
+		//add label for each bar based on the chart data
+		context.textAlign='center';
+		
+		for(var i=0;i<numBars;i++){
+			//determin the X and Y positions for the marker
+			markerXPos=chartMargin+chartAxisSpace+barMargin+(i*(barWidth+barMargin))+(0.5*barWidth);
+			markerYPos=chartMargin+chartHeight+10;
+			
+			//Add the text under thr bottom of the bar
+			context.fillText(chartData.bars[i].title,markerXPos,markerYPos,barWidth);
+		}
+		//Add y-axis title
+		context.save()
+		context.translate(chartMargin+10,chartHeight/2);
+		context.rotate(Math.PI*-90/180);
+		context.fillText('Sales (in 000s)',0,0);
+		context.restore();
+		
+		context.fillText('Year out',chartMargin+chartAxisSpace+(chartWidth/2),chartMargin+chartHeight+40);
 	}
+	
+	function growBars(){
+		
+		var barStartX=0;
+		var barStartY=0;
+		var barHeight=0;
+		
+		//bar value varibale from the data set
+		var barValue=0;
+		
+		
+		for(var i=0; i<numBars;i++){
+			
+			barValue=parseInt(chartData.bars[i].value);
+			
+			
+			barHeight=(barValue*chartHeight/maxValue)/numSteps*idxStep;
+			barStartX=chartMargin+chartAxisSpace+(i*(barWidth+barMargin))+barMargin;
+			barStartY=chartMargin+(chartHeight-barHeight);
+			drawBar(barStartX,barStartY,barWidth,barHeight);
+		}
+		
+		//grow the bars more if they hava not finished growing
+		if(idxStep<numSteps){
+			idxStep++;
+			setTimeout('growBars', growSpeed);
+		}
+	}
+	
+	function drawBar(barX,barY,barW,barH){
+		
+		context.fillStyle='#00c';
+		context.fillRect(barX,barY,barW,barH);
+		
+		//add shadow to bar
+		context.shadowOffsetX=3;
+		context.shadowOffsetY=-3;
+		context.shadowBlur=3;
+		context.shadowColot='rgba(200,200,200,.3)';
+		
+		context.strokeStyle='#000';
+		context.lineWidth=1;
+		context.strokeRect(barX,barY,barW,barH);
+	}
+	
+	window.addEventListener('load',initGraph,false);
 </script>
 </head>
 <body>

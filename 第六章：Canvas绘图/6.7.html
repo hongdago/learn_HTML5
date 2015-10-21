@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- 6.7 绘制三角形 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<style>
+#canvas {
+	border: 1px solid #000;
+}
+</style>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<canvas id="canvas" width="640" height="480"></canvas>
+	<script>
+		var canvas = document.getElementById("canvas").getContext('2d');
+		canvas.beginPath();
+		canvas.moveTo(10,10);
+		canvas.lineTo(630,470);
+		canvas.lineTo(10,470);
+		canvas.lineTo(10,10);
+		canvas.closePath();
+		
+		canvas.strokeStyle="rgba(200,0,200,1)";
+		canvas.lineWidth=3;
+		
+		canvas.fillStyle='#ccc';
+		canvas.fill();
+		
+		canvas.lineCap='round';
+		canvas.lineJoin='round';
+		canvas.stroke();
+		
+	</script>
+</body>
+</html>

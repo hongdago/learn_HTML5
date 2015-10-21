@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!-- 5.14 HTML5注册表单 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<script src="my-javascript-file.js"></script>
+<link rel="stylesheet" href="my-css-file.css" />
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<form>
+	<label for="email">Email</label><input oninput="check()" required type="email" id="email" name="email"/>
+	<input type="submit"/>
+	</form>
+	<script>
+	function check(){
+		var emailInput =document.getElementById("email");
+		emailInput.setCustomValidity("输入非法，请检查")
+	}
+	</script>
+</body>
+</html>

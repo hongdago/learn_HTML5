@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- 6.8 使用路径绘制多边形 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>6.8 Drawing Polygons with Paths</title>
+<style>
+#canvas {
+	border: 1px solid #03f;
+}
+</style>
+<script>
+//Global variables for the canvas and context
+var canvas;
+var context;
+
+//initializtion function when the page loads
+function init() {
+	//set the button handler
+	var btnDrawPolygon=document.getElementById('drawPolygon');
+	btnDrawPolygon.addEventListener('click',drawPolygon,false);
+	
+	//set references to the canvas and context
+	canvas=document.getElementById('canvas');
+	context=canvas.getContext('2d');
+}
+
+function drawPolygon(){
+	//retrieve the user input for the polygon
+	var numSides=document.getElementById('numSides').value;
+	var radius=document.getElementById('radius').value;
+	
+	//Get out canvas center point ro center the polygon
+	var xCenter=parseInt(canvas.width/2);
+	var yCenter=parseInt(canvas.height/2);
+	
+	//clear the canvas
+	context.clearRect(0,0,canvas.width,canvas.height);
+	
+	//begin our path
+	context.beginPath();
+	
+	var xPos=xCenter+radius*Math.cos(2*Math.PI*0/numSides);
+	var yPos=yCenter+radius*Math.sin(2*Math.PI*0/numSides);
+	context.moveTo(xPos,yPos);
+	
+	for(i=1;i<=numSides;i++){
+		xPos=xCenter+radius*Math.cos(2*Math.PI*i/numSides);
+		yPos=yCenter+radius*Math.sin(2*Math.PI*i/numSides);
+		
+		context.lineTo(xPos,yPos);
+	}
+	context.closePath();
+	
+	//set the line properties and draw the linew
+	context.lineWidth=30;
+	context.lineJoin='round';
+	context.stroke();
+	
+	context.fillStyle='#00f';
+	context.fill();
+}
+
+window.addEventListener('load',init,false);
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<h1>Canvas Path Usage:</h1>
+	<canvas id="canvas" width="400" height="400">
+	The canvas element is not support in your browser.
+	</canvas>
+	<br>
+	Number of Side: <input type="number" id="numSides" min="3" step="1" value="7"/><br>
+	Radius:<input type="number" id="radius" min="10",step="1" value="150"/><br>
+	<button id="drawPolygon">Draw Polygon</button>
+</body>
+</html>

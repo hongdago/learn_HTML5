@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!-- 6.2 绘制canvas网格 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Canvas Grid System</title>
+<style>
+#canvas {
+	border: 1px solid #03f;
+	background: #CFC;
+}
+</style>
+<script>
+//Declart our canvas and context reference variables
+var canvas;
+var context;
+
+//Lay the grid on to the canvas
+function showGrid(){
+	
+	//get references to the canvas and then the drawing context
+	canvas=document.getElementById('canvas');
+	context=canvas.getContext('2d');
+	
+	//set line width and color for the grid lines
+	context.linewidth=1;
+	context.strokeStyle='#999';
+	
+	//set the line spacing for the gird lines
+	lineSpacing=100;
+	
+	//initialize the x and y positions
+	var xPos=0;
+	var yPos=0;
+	
+	//determine the number of horizontal and vertical linew on the grid
+	var numHorizontalLines=parseInt(canvas.height/lineSpacing);
+	var numVerticalLines=parseInt(canvas.width/lineSpacing);
+	
+	//Draw the hozizontal lines
+	for(var i=1 ;i<=numHorizontalLines;i++){
+		yPos=i*lineSpacing;
+		context.moveTo(0,yPos);
+		context.lineTo(canvas.width,yPos);
+		context.stroke();
+	}
+	
+	//Draw the vertical_lines
+	for(var i=1;i<=numVerticalLines;i++){
+		xPos=i*lineSpacing;
+		context.moveTo(xPos,0);
+		context.lineTo(xPos,canvas.height);
+		context.stroke();
+	}
+	
+	//Add circles and coordinates to the grid intersections
+	for(var y=0 ;y<=numHorizontalLines;y++){
+		for(var x=0 ;x<=numVerticalLines;x++){
+			//calculate the x and y position
+			xPos=x*lineSpacing;
+			yPos=y*lineSpacing;
+			
+			//if at (0,0) the change color
+			if(x==0 && y==0){
+				context.fillStyle="#f00";
+			}else{
+				context.fillStyle="#000";
+			}
+			
+			//draw circle at point
+			context.beginPath()
+			//draw a circle of radius 5 at the x and y postion
+			context.arc(xPos,yPos,5,0,Math.PI*2,true)
+			context.closePath();
+			context.fill();
+			
+			//Dispaly the text for the coordinate
+			//check if on last vertical and place text on left
+			if(x==numVerticalLines){
+				context.textAlign='right';
+				xPos-=5;
+			}else{
+				context.textAlign='left';
+				xPos+=5;
+			}
+			//check if on bottom horizontal and place text above
+			if(y==numHorizontalLines){
+				yPos-=8;
+			}else{
+				yPos+=12;
+			}
+			//Add the text to the canvas
+			context.fillText('('+x*lineSpacing+','+y*lineSpacing+')',xPos,yPos);
+		}	
+	}
+}
+
+//on page load initialize the bar chart
+window.addEventListener('load',showGrid,false);
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<h1>Canvas Grid System</h1>
+	<canvas id="canvas" width="600" height="400">
+	The Canvas HTML5 element is not supported by your browser.
+	Please run this page in a different browser.
+	</canvas>
+</body>
+</html>

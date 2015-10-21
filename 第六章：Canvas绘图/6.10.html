@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!-- 6.10 Canvas下绘制文字 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<style>
+#canvas {
+	border: 1px solid #000;
+}
+</style>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<canvas id="canvas" width="640" height="480"></canvas>
+	<script>
+		var canvas = document.getElementById("canvas").getContext('2d');
+		canvas.font='bold 80px Tahoma';
+		canvas.fillStyle='#000';
+		canvas.fillText("HTML5 Canvas",10,100);
+		
+		canvas.strokeStylr="#000";
+		canvas.lineWidth=3;
+		canvas.fillStyle="#ccc";
+		canvas.textAlign="center";
+		canvas.fillText("HTML5 Canvas",320,200);
+		canvas.strokeText("HTML5 Canvas",320,200);
+	</script>
+</body>
+</html>

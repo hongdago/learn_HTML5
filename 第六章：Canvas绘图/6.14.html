@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!-- 6.14 移动和旋转图片 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<style>
+#canvas {
+	border: 1px solid #03F;
+}
+</style>
+<script>
+	var canvas;
+	var context;
+	
+	var gear=new Image();
+	var xpos;
+	
+	var setpCounter;  //counter for the current step
+	var setpDegrees;  //how much to rotate each step
+	var stepDistance; //how far to move image each step
+	var stepSpeed;    //how fast to rotate and move the image
+	var stepsFullRevolution;  //how many steps in a full rotation
+	
+	function init(){
+		canvas = document.getElementById('canvas');
+		context = canvas.getContext('2d');
+		
+		stepCounter=0;
+		stepDegrees=2;
+		stepDistance=2;
+		stepSpeed=5;
+		stepsFullRevolution=parseInt(360/stepDegrees);
+		
+		gear.addEventListener('load',initGear,false);
+		
+		gear.src='gear.png';
+	}
+	
+	//when the image is loaded then start the animation
+	function initGear(){
+		xpos=-(gear.width/2);
+		//call the animation function
+		moveGear();
+	}
+	
+	function moveGear(){
+		context.clearRect(0,0,canvas.width,canvas.height);
+		
+		//save the present canvas context so we can return
+		context.save();
+		
+		xpos+=stepDistance;
+		
+		//Move our 0,0 point to the new position of the cog
+		context.translate(xpos,canvas.height-(gear.width/2));
+		
+		//Rotate the context and thus our cog
+		context.rotate(Math.PI*stepDegrees*stepCounter/180);
+		
+		//Draw the newly rotated image
+		context.drawImage(gear,-(gear.width/2),-(gear.height/2),gear.width,gear.height);
+		
+		context.restore();
+		
+		if((xpos-(gear.width/2))<canvas.width){
+			stepCounter++;
+			if(stepCounter>=(stepsFullRevolution-1)){
+				stepCounter=0;
+			}
+			setTimeout('moveGear()',stepSpeed);
+		}
+	}
+	
+	window.addEventListener('load',init,false);
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<h1>The Rolling Cog</h1>
+	<canvas id="canvas" width="768" height="128">
+	The Canvas element is not supported in this browser.
+	</canvas>
+
+</body>
+</html>

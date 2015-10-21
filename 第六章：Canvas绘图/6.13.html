@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- 6.11 利用图片裁剪绘制动画 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Sprint slice Animation</title>
+<style>
+#canvas {
+	border: 1px solid #03f;
+}
+</style>
+<script>
+	var canvas;
+	var context;
+
+	var spriteRecycle = new Image();
+
+	var sliceX = 0;
+	var sliceY = 0;
+	var sliceWidth = 100;
+	var sliceHeight = 100;
+
+	var intervalRef;
+
+	function init() {
+		var btnStart = document.getElementById('start');
+		var btnStop = document.getElementById('stop');
+		btnStart.addEventListener('click', startAnimation, false);
+		btnStop.addEventListener('click', stopAnimation, false);
+
+		canvas = document.getElementById('canvas');
+		context = canvas.getContext('2d');
+
+		spriteRecycle.src = 'recycle_sprite.png';
+	}
+
+	function animateSprite() {
+		context.drawImage(spriteRecycle, sliceX, sliceY, sliceWidth,
+				sliceHeight, 0, 0, 100, 100);
+		sliceX += 100;
+		if (sliceX > spriteRecycle.width) {
+			sliceX = 0;
+		}
+	}
+
+	function startAnimation() {
+		intervalRef = setInterval('animateSprite()', 100);
+	}
+
+	function stopAnimation() {
+		clearInterval(intervalRef);
+		context.clearRect(0, 0, 100, 100);
+	}
+
+	window.addEventListener('load', init, false);
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<h1>Sprite Map Animation with Canvas</h1>
+	<canvas id="canvas" width="100" height="100">
+	The Canvas element is not supported in this browser.
+	</canvas>
+	<button id="start">start</button>
+	<button id="stop">stop</button>
+
+</body>
+</html>

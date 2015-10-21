@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!-- 6.6 绘制一条线段 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<style>
+#canvas {
+	border: 1px solid #000;
+}
+</style>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<canvas id="canvas" width="640" height="480"></canvas>
+	<script>
+		var canvas = document.getElementById("canvas").getContext('2d');
+		canvas.moveTo(10,10);
+		canvas.lineTo(630,470);
+		canvas.strokeStyle="rgba(200,0,200,1)";
+		canvas.stroke();
+		
+	</script>
+</body>
+</html>

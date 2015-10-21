@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- 6.12 裁剪图片 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<style>
+#canvas {
+	border: 1px solid #000;
+}
+</style>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<canvas id="canvas" width="640" height="480"></canvas>
+	<script>
+		var canvas = document.getElementById("canvas").getContext('2d');
+		var canvasImage = new Image();
+
+		function cropImage() {
+			canvas.drawImage(canvasImage, 0,//position X inside the crop
+			0,//position Y inside the crop
+			256,//source image width
+			256,//source image height
+			110,//crop position X
+			110,//crop positin Y
+			250,//crop width
+			250 //crop height
+			)
+		}
+
+		canvasImage.addEventListener("load", cropImage, false);
+		canvasImage.src = 'html5-logo.png';
+	</script>
+</body>
+</html>

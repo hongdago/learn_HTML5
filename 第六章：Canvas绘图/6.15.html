@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!-- 6.15 创建柱形图动画效果 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<style>
+#graph {
+	border: 1px solid #03F
+}
+</style>
+<script>
+	var canvas;
+	var context;
+
+	//chart settings
+	var chartMargin;
+	var chartAxisSpacel;
+	var chartWidthl;
+	var chartHeight;
+
+	var numBars = 0; //total number of bars
+	var barMargin = 20; //margin between bars
+	var barWidth = 0; //bar width
+	var maxValue = 0; //maxium data value for the bars
+
+	//number of u-axis labels
+	var numYlabels;
+
+	//bar animation variables
+	var idxStep;
+	var numSteps;
+	var growSpeed;
+
+	//chart JSON sample data
+	var chartData = {
+		'bars' : [ {
+			'title' : 'Year 1',
+			'value' : '7'
+		}, {
+			'title' : 'Year 2',
+			'value' : '12'
+		}, {
+			'title' : 'Year 3',
+			'value' : '20'
+		}, {
+			'title' : 'Year 4',
+			'value' : '33'
+		}, {
+			'title' : 'Year 5',
+			'value' : '55'
+		}, {
+			'title' : 'Year 6',
+			'value' : '93'
+		}, {
+			'title' : 'Year 7',
+			'value' : '156'
+		}
+
+		]
+	}
+
+	function initGraph() {
+		//get reference to canvas and drawing context
+		canvas = document.getElementById('graph');
+		context = canvas.getContext('2d');
+
+		initSettings() //initialize the chart settings
+		drawAxis();//draw the chart axis and labels
+		growBars();//animate the bars into the chart
+	}
+	
+	function initSettings(){
+		//set our chart settings
+		chartMargin=20;//margin around entire canvas
+		chartAxisSpace=50; //area for the x- and y-axes
+		
+		//set the chart drawing area
+		chartHeight=canvas.height-chartAxisSpace-2*chartMargin;
+		chartWidth=canvas.width-chartAxisSpace-2*chartMargin;
+		
+		//set the number of labels to user for the y-axis
+		numYLabels =8;
+		//set the number of bars based on the chartData
+		numBars=chartData.bars.length;
+		
+		//find our max data value to scale the graph
+		for(var i=0 ;i<numBars;i++){
+			if(chartData.bars[i].value>maxValue){
+				maxValue=parseInt(chartData.bars[i].value);
+			}
+		}
+		
+		//determine the width of each bar
+		barWidth=(chartWidth/numBars)-barMaigin;
+		//initialze animation variables
+		idxStep=0;
+		numSteps=100;
+		growSpeed=6;
+	}
+	
+	function drawAxis(){
+		//set line width for the axis lines
+		context.lineWidth=2;
+		
+		//draw y-axis-from lower left to upper left
+		context.moveTo(chartMargin+chartAxisSpace,chartHeight+chartMargin);
+		context.lineTo(chartMargin+chartAxisSpace,chartMargin);
+		context.stroke()
+		
+		//draw x axis - form lower left to lower rigth
+		context.moveTo(charMargin+chartAxisSpace,chartMargin+chartHeight);
+		context.lineTo(chartMargin+chartAxisSpace+chartWidth,chartMargin+chartHeight)
+		context.stroke();
+		
+		//set the line width back to 1 pixel
+		context.lineWidth=1;
+		
+		//add data marks to the y-Axos
+		var markerAmount=parseInt(maxValue/numYLabels);
+		context.textAlign='right';
+		context.fillStyle='#000';
+		
+		for(var i=0 ; i<=numYLabels;i++){
+			//Determine the label and X and Y points
+			markerLabel=i*markerAmount;
+			markerXPos=chartMargin+charAxisSpace-5;
+			markerYPos=chartMargin+(chartHeight-((i*markerAmount*chartHeight)/maxValue));
+			context.fillText(markerLabel,markerXPos,)
+			
+		}
+		
+	}
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<h1>Growing Bar Chart</h1>
+	<canvas id="graph" width="600" height="400">
+	The Canvas element is not supported in this browser.
+	</canvas>
+</body>
+</html>

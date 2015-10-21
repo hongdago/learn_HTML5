@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!-- 6.11 绘制图片 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<style>
+#canvas {
+	border: 1px solid #000;
+}
+</style>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<canvas id="canvas" width="640" height="480"></canvas>
+	<script>
+		var canvas = document.getElementById("canvas").getContext('2d');
+		var canvasImage = new Image();
+		
+		function drawCanvasImage(){
+			canvas.drawImage(canvasImage,155,100);
+		}
+		
+		canvasImage.addEventListener("load",drawCanvasImage,false);
+		canvasImage.src='html5-logo.png';
+	</script>
+</body>
+</html>

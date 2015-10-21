@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- 6.5 创建渐变效果 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<style>
+#canvas {
+	border: 1px solid #000;
+}
+</style>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<canvas id="canvas" width="640" height="480"></canvas>
+	<script>
+		var canvas = document.getElementById("canvas").getContext('2d');
+		var grd=canvas.createLinearGradient(0,200,200,0);
+		grd.addColorStop(0,"#000");
+		grd.addColorStop(.5,"#ccc");
+		grd.addColorStop(1,'#000');
+		canvas.fillStyle=grd;
+		canvas.fillRect(0,0,200,200);
+		canvas.closePath();
+		
+		
+		var grd=canvas.createRadialGradient(300,250,2,200,200,250);
+		grd.addColorStop(0,'#000');
+		grd.addColorStop(1,'#ccc');
+		canvas.fillStyle=grd;
+		canvas.fillRect(200,200,200,200);
+		canvas.closePath();
+		
+	</script>
+</body>
+</html>

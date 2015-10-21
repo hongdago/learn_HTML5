@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!-- 6.3 正方形的样式 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<style>
+#canvas {
+	border: 1px solid #000;
+}
+</style>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<canvas id="canvas" width="640" height="480"></canvas>
+	<script>
+		var canvas = document.getElementById("canvas").getContext('2d');
+		canvas.shadowOffSetX = 10;
+		canvas.shadowIffsetY = 10;
+		canvas.shadowBlur = 10;
+		canvas.shadowColor = 'rgba(200,0,200,.3)';
+		canvas.fillStyle = 'rgba(200,0,200,1)';
+		canvas.fillRect(0, 0, 100, 100)
+	</script>
+</body>
+</html>

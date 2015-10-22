@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- 9.3 能够监听popstate事件的图片查看器   -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Image 1</title>
+<style>
+div.imgView {
+	height: 300px;
+}
+
+div.imgView img {
+	height: 300px;
+}
+
+div.imgRow img {
+	height: 100px;
+}
+
+a {
+	cursor: pointer
+}
+</style>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<script>
+		var currentImg = 1;
+		
+		//set up the popstate page handler
+		window.addEventListener('popstate',popPage,false);
+		
+		function popPage(event){
+			currentImg=event.state;
+			
+			var imgTitle='Image '+currentImg;
+			document.getElementById('imgSlide').src='images/slide'+currentImg+'.jpg';
+			document.getElementById('imageInfo').innewHTML=imgTitle;
+			document.title=imgTitle;
+			
+			//show we poped a hiostory event and the poped state
+			var stateInfo=document.getElementById('stateInfo')
+			stateInfo.innerHTML='Histroy poped :'+imgTitle+' : state: '+JSON.stringify(event.state)+"<br>"+stateInfo.innerHTML;
+		}
+		function showImage(imgNum) {
+			if (typeof history.pushState !== 'undefined') {
+				if (currentImg != imgNum) {
+					var imgTitle = 'Image ' + imgNum;
+					history.pushState(imgNum, imgTitle, '?img=' + imgNum);
+					document.getElementById('imgSlide').src = 'images/slide'
+							+ imgNum + '.jpg';
+					document.getElementById('imageInfo').innerHTML = imgTitle;
+
+					document.title = 'Image ' + imgNum;
+					var stateInfo = document.getElementById('stateInfo');
+					stateInfo.innerHTML = imgTitle + "<br>"
+							+ stateInfo.innerHTML;
+
+					currentImg = imgNum;
+				}
+			} else {
+				alert("The History API is not available in the browser.");
+			}
+		}
+	</script>
+	<div id='imgView' class='imgView'>
+		<img id='imgSlide' src='images/slide1.jpg' style='height: 300px'>
+	</div>
+	<div id='imageInfo'>Image 1</div>
+	<div id='imgRow' class='imgRow'></div>
+	<script>
+		var newImg;
+		var imgRow = document.getElementById('imgRow');
+		for (var i = 1; i <= 5; i++) {
+			newImg='<a onclick="showImage('+i+')"><img class="thumbnail" src="images/slide'+i+'.jpg"></a>';
+			imgRow.innerHTML += newImg;
+		}
+	</script>
+	<div id="stateInfo">Image 1</div>
+
+</body>
+</html>

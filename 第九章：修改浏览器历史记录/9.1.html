@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- 9.1 使用pushState添加页面到历史记录  -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>At the Zoo</title>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<script>
+//initial the button handler
+function init(){
+	//attach the click button handler
+	var btnNextExhibit =document.getElementById('btnNextExhibit');
+	btnNextExhibit.addEventListener('click',nextExhibit,false);	
+}
+
+function nextExhibit(){
+	//check to see if the history pushState API is available
+	
+	if (typeof history.pushState !=="undefined"){
+		history.pushState('Meerkat','Meerkat Exhibit','meerkats.html');
+		document.getElementById("exhibit").innerHTML="At the Meerkats.";
+	}else{
+		alert("The History API　is not available in this browser.");
+	}
+}
+
+window.addEventListener('load',init,false);
+</script>
+
+	Welcome to the zoo.
+	<div id='exhibit'>You are at the Zoo entrance.</div>
+	<button id="btnNextExhibit">Visit the Meerkats</button>
+</body>
+</html>

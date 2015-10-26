@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!-- 11.4 在本地存储中保存表单修改 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>11.4 Storing Form Data with Local Storage</title>
+<script>
+//function to read storage and init form
+function checkStorage()
+{
+	if(window.localStorage){
+		
+		var key,value,field;
+		
+		//loop through local storage
+		for(var i=0 ; i<localStorage.length;i++){
+			key=localStorage.key(i);
+			field=document.getElementById(key);
+			if(field){
+				value=unescape(localStorage.getItem(key));
+				field.value=value;
+			}
+		}
+	}	
+}
+
+function changeField(formField){
+	if(window.localStorage){
+		var key,value;
+		key=formField.id;
+		value=escape(formField.value);
+		
+		try{
+			localStorage.setItem(key,value);
+		}catch(err){
+			if(err.code==QUOTA_EXCEEDED_ERR){
+				alert('localStorage ran out of memory');
+			}
+		}
+	}else{
+		alert('localStorage is not supported.');
+	}
+	
+}
+
+window.addEventListener('load',checkStorage,false);
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<h1>My Form</h1>
+	<form id='myForm'>
+		<table>
+			<tr>
+				<td>First Name:</td>
+				<td><input type="text" id="firstName"
+					onchange="changeField(this);" /></td>
+			</tr>
+			<tr>
+				<td>Last Name:</td>
+				<td><input type="text" id="lastName"
+					onchange="changeField(this);" /></td>
+			</tr>
+			<tr>
+				<td>Email:</td>
+				<td><input type="email" id="email"
+					onchange="changeField(this);" /></td>
+			</tr>
+			<tr>
+				<td>Telephone:</td>
+				<td><input type="tel" id="phone" onchange="changeField(this);" /></td>
+			</tr>
+
+		</table>
+	</form>
+</body>
+</html>

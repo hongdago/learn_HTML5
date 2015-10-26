@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- 9.6 幻灯片展示:压入带有数据的页面   -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>At the Zoo</title>
+<script>
+//set first and last slide numbers
+var minSlide =1;
+var maxSlide = 5;
+//initialize fields used
+var currentSlide =1;
+var currentTitle = 'My Slide 1';
+var borderOn = 0 ;
+var slideNote = "";
+
+//initialize our first slide state by replacing current state
+var stateObj= {slide:currentSlide,border:borderOn,note:slideNote};
+history.replaceState(stateObj,currentTitle,'?slide='+currentSlide);
+
+//history's pop state handler
+window.onpopstate=function(event){
+	
+	//show the location URL and string display of the event.state
+	document.getElementById('stateInfo').innerHTML='Location: '+document.location+"<br>state: "+JSON.stringify(event.state);
+	currentSlide =event.state.slide;
+	borderOn=event.state.border;
+	slideNote=event.state.note;
+	
+	//show the cuttent slide
+	showSlide();
+}
+
+function nextSlide(){
+	
+	//check if the History API is available
+	
+	if(typeof history.pushState !=="undefined"){
+		
+		if(currentSlide < maxSlide){
+			slideNote =document.getElementById('textNote').value;
+			var currentStateObj ={slide:currentSlide,border:borderOn,note:slideNote};
+			history.replaceState(currentStateObj,'Slide '+currentSlide+' '+slideNote,'?slide='+currentSlide);
+			
+			currentSlide++;
+			borderOn=0;
+			slideNote="";
+			document.getElementById('stateInfo').innewHTML="";
+			var nextStateObj= {slide:currentSlide,border:borderOn,note:slideNote};
+			history.pushState(nextStateObj,'Slide '+currentSlide,'?slide='+currentSlide);
+		
+			showSlide();
+		}
+	}else{
+		
+		alert('Thw history API is not available in this browser.');
+	}
+}
+
+function preSlide(){
+	if(currentSlide>minSlide){
+		history.back();
+	}
+}
+
+function showSlide(){
+	document.getElementById('imgSlide').src="images/slide"+currentSlide+".jpg";
+	document.getElementById('slideInfo').innewHTML="Slide"+currentSlide;
+	
+	document.title="Slide "+currentSlide;
+	
+	if(borderOn ==1){
+		document.getElementById('imgSlide').style.border="5px solid #000000";
+		document.getElementById('chkBorder').checked=1;
+	}else{
+		document.getElementById('imgSlide').style.border="";
+		document.getElementById('chkBorder').checked=0;
+	}
+	document.getElementById('textNote').value=slideNote;
+}
+
+function setImgBorder(){
+	if(document.getElementById('chkBorder').checked==1){
+		document.getElementById('imgSlide').style.border="5px solid #000000";
+		borderOn=1;
+	}else{
+		document.getElementById('imgSlide').style.border="";
+		borderOn=0;
+	}
+}
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<!-- slide image and title -->
+	<div id='slide' style='height:230px;'><img id='imgSlide' src='images/slide1.jpg'></div>
+	<div id='slideInfo'>Slide 1</div>
+	
+	<input type='checkBox' id='chkBorder' onChange='setImgBorder()'>Border<br>
+	Note:<input type="text" id="textNote" value=""><br>
+	
+	<input type="button" onClick="preSlide()" value="Previous Slide" />
+	<input type="button" onClick="nextSlide()" value="Next Slide"/>
+	
+	<div id="stateInfo"></div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!-- 10.2 使用getCurrentPosition来映射位置  -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>10.2 Map Me with Error Handling</title>
+<style>
+#container {
+	width: 500px;
+}
+
+#mapCanvas {
+	width: 500px;
+	height: 300px;
+	border-style: solid;
+	border-width: 2px;
+	margin: 22px 0;
+}
+
+#btnMapMe {
+	float: left;
+}
+
+#myLocation {
+	float:right;
+}
+</style>
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script>
+	//initialize the page with other event listeners
+	function init() {
+		var btnMapMe = document.getElementById('mapMe');
+		btnMapMe.addEventListener('click', mapMe, false);
+	}
+
+	//sucess callback function for getCurrentPosition
+	function geoSuccess(position) {
+		//get referenct to result div
+		var myLocationDiv = document.getElementById('myLocation');
+
+		//display the coords and timestamp object fields
+		var posLat = position.coords.latitude;
+		var posLng = position.coords.longitude;
+		var posAccuracy = position.coords.accuracy;
+
+		myLocationDiv.innerHTML = 'Lat: ' + posLat + ',Lng: ' + posLng
+				+ '<br>Accuracy: ' + posAccuracy;
+
+		var myLatLng = new google.maps.LatLng(posLat, posLng);
+
+		var myOptions = {
+			zoom : 14,
+			center : myLatLng,
+			mapTypeId : google.maps.MapTypeid.ROADMAP
+		}
+
+		var map = new google.maps.Map(document.getElementById('mapCanvas'),
+				myOptions);
+
+		var markder = new google.maps.Marker({
+			position : myLatLng,
+			map : map
+		});
+
+		var infoText = '';
+		infoText = posLat + ', ' + posLng + '<br>Accuracy: ' + posAccuracy;
+		if (position.address) {
+			infoText += '<br>' + position.address.city + ', '
+					+ position.address.region;
+		}
+
+		var infowindow = new google.maps.InfoWindow();
+		infowindow.setContent(infoText);
+		infowindow.open(map, marker);
+	}
+
+	function geoErrorHandler(error) {
+
+		var errMessage = "Error: ";
+		switch (error.code) {
+		case error.PERMISSION_DENIED:
+			errMessage += "User did not share geolocation data.";
+			break;
+		case error.POSITION_UNAVAILABLE:
+			errMessage += 'Could not detect currentposition.';
+			break;
+		case error.TIMEOUT:
+			errMessage += "Retriving position timed out.";
+			break;
+		default:
+			errMessage += 'Unknow error.';
+			brea;
+			;
+		}
+
+		document.getElementById('myLocation').innerHTML = errMessage;
+	}
+
+	function mapMe() {
+
+		var myLocationDiv = document.getElementById('myLocation');
+
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(geoSuccess,
+					geoErrorHandler);
+			myLocationDiv.innerHTML = "Retrieving your location...";
+		} else {
+			myLocationDiv.innerHTML = 'Geolocation API not supported';
+		}
+	}
+
+	window.addEventListener('load', init, false);
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<div id='container'>
+		<div id='mapCanvas'></div>
+		<div id='brnMapMe'>
+			<button id='mapMe'>Find Me</button>
+		</div>
+		<div id='myLocation'></div>
+	</div>
+</body>
+</html>

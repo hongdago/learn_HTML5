@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!-- 10.1 getCurrentPosition查询浏览器位置  -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>10.1 Find Me</title>
+<script>
+//initialize the page with other event listeners
+function init(){
+	var btnFindMe=document.getElementById('findMe');
+	btnFindMe.addEventListener('click',findme,false);
+}
+
+//sucess callback function for getCurrentPosition
+function geoSuccess(position){
+	var dateDisplay=new Date(position.timestamp);
+	
+	//get referenct to result div
+	var myLocationDiv =document.getElementById('myLocation');
+	
+	//display the coords and timestamp object fields
+	myLocationDiv.innerHTML='Lat: '+position.coords.latitude+'<br>'+
+		'Lng: '+position.coords.longitude+'<br>'+
+		'Accuracy: '+position.coords.accuracy+'<br>'+
+		'Altitude(opt): '+position.coords.altitude+'<br>'+
+		'Alt.Accuracy (opt): '+position.coords.altitudeAccuray+'<br>'+
+		'Heading (opt): '+position.coords.heading+'<br>'+
+		'Speed (opt):'+position.coords.speed+'<br>'+
+		'Position DOMTimeStamp: '+position.timestamp+'<br>'+
+		'Time Date Stamp: '+dateDisplay.toLocaleString();
+}
+
+function findme(){
+	
+	var myLocationDiv=document.getElementById('myLocation');
+	
+	if(navigator.geolocation){
+		navigator.geolocation.getCurrentPosition(geoSuccess);
+	}else{
+		myLocationDiv.innerHTML='Geolocation API not supported';
+	}
+}
+
+window.addEventListener('load',init,false);
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<div id='btnFindMe'>
+		<button id='findMe'>Find Me</button>
+	</div>
+	<div id='myLocation'></div>
+</body>
+</html>

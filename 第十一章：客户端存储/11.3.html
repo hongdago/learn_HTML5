@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!-- 11.3 显示主题的页面2 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>11.3 showing thw Theme -Page 2</title>
+<style>
+#themeContent {
+	background-color: #FFF;
+	border-style: solid;
+	border_width: 2px;
+}
+
+#themeSettings {
+	margin: 10px
+}
+</style>
+<script>
+	function init() {
+		var themeColor = sessionStorage.getItem('themeColor');
+		applyTheme(themeColor);
+	}
+
+	function applyTheme(themeColor) {
+		document.body.style.backgroundColor = themeColor;
+		var themDiv = document.getElementById('theme');
+		themeDiv.innerHTML = themcColor + ' theme.';
+
+	}
+	window.addEventListener('load', init, false);
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<div id='themtSettings'>
+		<h1>Page 2</h1>
+		<div id="theme"></div>
+		<br>
+		<br> <a href="11.2.html">Go to Page 1</a>
+	</div>
+</body>
+</html>

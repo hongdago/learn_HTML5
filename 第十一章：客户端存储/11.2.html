@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!-- 11.2 在会话存储中设置一个主题-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>11.2 Theme Selector - page1</title>
+<style>
+#themeContent{
+background-color:#FFF;
+border-style:solid;
+border-width:2px;
+}
+
+#themeSettings{
+	margin:10px;
+}
+</style>
+<script>
+var themeDiv; //output display dib
+function initTheme(){
+	themeDiv=document.getElementById('theme');
+	
+	if(window.sessionStorage){
+		var btnResetTheme =document.getElementById('resetTheme');
+		btnResetTheme.addEventListener('click', resetTheme, false);
+		
+		var selThemeColor=document.getElementById('themeColor');
+		selThemeColor.addEventListener('change', setTheme, false);
+		
+		if(sessionStorage.themeColor){
+			var themeColor=sessionStorage.getItem('themeColor');
+			document.getElementById(themeColor).selected=true;
+			applyTheme(themeColor);
+		}
+	}else{
+		themeDiv.innewHTML='sessionStorage is not supported.';
+	}
+}
+function setTheme(){
+	var themeColor =document.getElementById('themeColor').value;
+	
+	try{
+		sessionStorage.setItem('themeColor',themeColor);
+		applyTheme(themeColor);
+	}catch(err){
+		if(err.code==QUOTA_EXCEEDED_ERR){
+			themeDiv.innerHTML='sessionStorage ran out of memory.';
+		}
+	}
+}
+
+function resetTheme(){
+	sessionStorage.removeItem('themeColor');
+	
+	//reset display
+	document.getElementById('default').selected=true;
+	document.body.style.backgroundColor='';
+	themeDiv.innerHTML='Theme reset.';
+}
+
+function applyTheme(themeColor){
+	document.body.style.backgroundColor=themeColor;
+	themeDiv.innerHTML='Theme '+themeColor+' applied.';
+}
+
+window.addEventListener('load',initTheme,false);
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<div id='themeContent'>
+		<div id='themeSettings'>
+			<h1>Page 1</h1>
+			Choose Themt: <select id="themeColor">
+				<option id='default' value="">Select color...</option>
+				<option id='blue' value="blue">Blue</option>
+				<option id='red' value="red">Red</option>
+				<option id='yellow' value="yellow">Yellow</option>
+				<option id='green' value="green">Green</option>
+			</select>
+			<button id='resetTheme'>Reset Theme</button>
+			<br>
+			<br>
+			<div id='theme'></div>
+			<br>
+			<br> <a href="11.3.html">Go to Page 2</a>
+		</div>
+	</div>
+</body>
+</html>

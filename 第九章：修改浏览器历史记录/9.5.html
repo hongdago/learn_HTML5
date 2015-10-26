@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- 9.5 压入和弹出   -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>At the Zoo</title>
+<script>
+//popstate event handler function
+function popPage(event){
+	var strState='POP-location:' +document.location+' , state: '+JSON.stringify(event.state);
+	document.getElementById('stateInfo').innerHTML += strState + '<br>';
+}
+
+function loadPages(){
+	logAction('pushing page 1');
+	history.pushState({page:1},'page 1','?page=1');
+	
+	logAction('pushing page 2');
+	history.pushState({page:2},'page 2','?page=2');
+	
+	logAction('replace page2 with page 3');
+	history.replaceState({page:3},'page 3','?page=3');
+	
+	logAction('taking one step back');
+	history.back();
+	
+	logAction('taking one step back again');
+	history.back();
+	
+	logAction('taking one step forward');
+	history.go(2);
+}
+	function logAction(strAction){
+		document.getElementById('stateInfo').innerHTML += strAction+' <br>';
+		alert(strAction);
+	}
+	
+	window.addEventListener('popstate',popPage,false);
+	window.addEventListener('load',loadPages,false);
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<div id='stateInfo'></div>
+</body>
+</html>

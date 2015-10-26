@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!-- 11.1 使用回话存储显示页面访问计数 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>11.1 Session Storage Page Visits</title>
+<script>
+function init(){
+	var divVisits=document.getElementById('divVisits');
+	
+	if(window.sessionStorage){
+		var visits; //number of visits to this page
+		if(sessionStorage.visits){
+			visits=parseInt(sessionStorage.getItem('visits'));
+			visits++;
+		}else{
+			visits=1;
+		}
+		sessionStorage.setItem('visits',visits);
+		
+		divVisits.innerHTML='Session page visits: '+visits;
+	}else{
+		divVisits.innerHTML='Window sessionStorage is not available';
+	}
+}
+
+window.addEventListener('load',init,false);
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<div id='divVisits'></div>
+</body>
+</html>

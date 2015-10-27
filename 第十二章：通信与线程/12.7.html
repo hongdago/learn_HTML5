@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- 12.7 创建客户页面 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>12.7 SharedWorker Client</title>
+<script>
+//global ShareWorker reference
+var worker = null;
+
+//initialize the page and SharedWorker connection
+function init(){
+	//reference our log output section
+	var logOutput =document.getElementById('log');
+	
+	//add the button listener
+	var btnSendNumber =document.getElementById('btnSendNumber');
+	btnSendNumber.addEventListener('click', sendNumber, false);
+	
+	//create our sharedWorker reference
+	sworker=new SharedWorker('12.8.js');
+	sworker.port.onmessage=function(msg){
+		//based on type of message display appropriately
+		switch(msg.data.msgType){
+		case 'LOG':
+			//reveived a log message, add to log
+			logOutput.innerHTML+=msg.data.msgText+'<br>';
+			break;
+		case 'AVE':
+			//reveived a new average value ,update average
+			var aveOutput=document.getElementById('average');
+			aveOutput.innerHTML=msg.data.aveValue;
+			
+			//add log entry
+			logOutput.innerHTML+=msg.data.msgText+'<br>';
+			break;
+		}
+	}
+}
+//send the number entered to the SharedWorker
+function sendNumber(){
+	//retrieve the number
+	var numToSend =document.getElementById('numberToSend').value;
+	
+	//post message to the SharedWorker (notice port)
+	sworker.port.postMessage(numToSend);
+	
+	//reset our value input field;
+	document.getElementById('numberToSend').value='';
+}
+
+window.addEventListener('load', init, false);
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	Current Average:<output id='average'></output>
+	<br><br>
+	<input id='numberToSend'/>
+	<button id='btnSendNumber'>Send Number to ShareWorker</button>
+	<hr width='100%'>
+	Message from SharedWorker:<br>
+	<section id='log'></section>
+</body>
+</html>

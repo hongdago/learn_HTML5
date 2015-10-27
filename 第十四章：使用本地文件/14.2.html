@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!-- 14.2 遍历FileList中多个文件 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>14.2 Processing Multiple Files with FileList</title>
+<style>
+#dropZone {
+	width:300px;
+	border:2px dashed #bbb;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	padding:25px;
+	text-align:center;
+	font:20pt bold;
+	color:#bbb;
+}
+
+#fileTable{
+	border:1px solid #000;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	padding:5px;
+	visibility: hidden;
+}
+
+tr:nth-child(odd) {background-color:#eee;}
+tr:nth-child(even){background-color:#fff;} 
+</style>
+<script>
+//initialize our drop zone
+function init(){
+	//setup the drop zone and listeners
+	dropZone=document.getElementById('dropZone');
+	dropZone.addEventListener('dragover', handleDragOver, false);
+	dropZone.addEventListener('drop	', handleFileDrop, false);
+}
+
+function handleFileDrop(evt){
+	//stop our drag and drop
+	evt.stopPropagation();
+	evt.preventDefault();
+	
+	//retrieve the filelist
+	var files=evt.dataTransfer.files;
+	
+	//display the filelist selected
+	displayFiles(files);
+}
+
+function handleDragOver(evt){
+	//trun off drop zone while over
+	evt.stopPropagation();
+	evt.preventDefault();
+}
+
+//display the files selected
+function displayFiles(files){
+	//clear the current table
+	clearTable();
+	
+	//display number of files selected
+	var fileCount=document.getElementById('fileCount');
+	fileCount.innerHTML=files.length+' File(s) selected';
+	
+	//set up fields for table generation
+	var fileTable=document.getElementById('fileTable')
+	
+	if(files.length >0){
+		var row;
+		var cell;
+		var textNode;
+		
+		for(var i=0 ;i<files.length;i++){
+			
+			var row=fileTable.insertRow(i);
+			cell=row.insertCell(0);
+			textNode=document.createTextNode(files[i].name);
+			cell.appendChild(textNode);
+			
+			cell=row.insertCell(1);
+			textNode=document.createTextNode(files[i].type);
+			cell.appendChild(textNode);
+			
+			cell=row.insertCell(2);
+			textNode=document.createTextNode((files[i].size/1024).toFixed(2)+'KB');
+			cell.appendChild(textNode);
+			
+			if(files[i].lastModifiedDate !=undefined){
+				cell=row.insertCell(3);
+				textNode=document.createTextNode(files[i].lastModifiedDate);
+				cell.appendChild(textNode);
+			}
+		}
+		fileTable.style.visibility='visible';
+	}else{
+		fileTable.style.visibility='hidden';
+	}
+}
+
+function clearTable(){
+	var fileTable=document.getElementById('fileTable');
+	
+	while(fileTable.rows.length>0){
+		fileTable.deleteRow(fileTable.rows.length-1);
+	}
+}
+
+window.addEventListener('load', init, false);
+
+
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<h1>Drag multiple files to the drop zone below:</h1>
+	<section id="fileseletion">
+		<!-- //multiple file section can also be done with the multiple attribute
+			
+			
+		 -->
+		<input type='file' id='input' multiple='true' onchange="displayFiles(this.files)">
+		<div id='dropZone'>Drop files here</div>
+	</section>
+	<section id='filesSelected'>
+		<br>
+		<div id="fileCount"></div>
+		<table id='fileTable'></table>
+	</section>
+</body>
+</html>

@@ -1,0 +1,13 @@
+CACHE MANIFAST
+#Version 1.0
+
+CACHE:
+13_3_calculation.js
+13_3_offline_style.css
+
+NETWORK:
+13_3_offline_style2.css
+
+FALLBACK:
+connection-tick.gif connection-cross.gif
+13_3_offline_contact.html 13_3_offline_offline.html

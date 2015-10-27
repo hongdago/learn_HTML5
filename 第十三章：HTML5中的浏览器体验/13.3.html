@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- 13.3 显示计算表单的HTML -->
+<html lang="en" manifest=13.3.appcache>
+<head>
+<meta charset="utf-8" />
+<title>Offline</title>
+<script src="13_3_calculation.js"></script>
+<link rel="stylesheet" href="13_3_offline_style.css" />
+<link rel="stylesheet" href="13_3_offline_style2.css" />
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<h1>Submit a calculation</h1>
+	<label for="first">First</label>
+	<input required type="number" id="first" name="first" />
+	<label for="second">Second</label>
+	<input required type="number" id="second" name="second" />
+	<input type="submit" onclick="calculate()" value="Calculate" />
+	<div id="resultHolder">
+		<h2>
+			Your result is <span id='result'></span>
+		</h2>
+		<p>
+			Now you hava your result,you can <a href='13_3_offline_contact.html'>contact
+				us</a>
+		</p>
+	</div>
+	<img src='connection-tick.gif' width="50" height="50" alt="">
+</body>

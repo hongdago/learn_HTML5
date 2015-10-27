@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!-- 12.4 创建客户端页面-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>12.4 Worker Communication</title>
+<script>
+//create our web worker
+var worker = new Worker('12.5.js');
+
+worker.onmessage=function(event){
+	//retrieve message portion of data
+	var msgFromWorker = event.data;
+	
+	//check to see our type of message
+	switch(msgFromWorker.msgType){
+	case 'MSG':
+		//message sent from web worker -display
+		var workResponse =document.getElementById('workerResponse');
+		workerResponse.innerHTML ='Worker sent: '+msgFromWorker.msg;
+		break;
+	case 'ERR':
+		//err sent from web worker --alert user
+		alert('Error from worker: '+msgFromWorker.msg);
+		break;
+	}
+};
+
+//error handler for web worker
+worker.onerror = function(error){
+	//simply alert user with error
+	alert('Error from worker: '+error.message);
+	
+};
+	
+
+//post the input to the web worker
+function postToWorker(){
+	worker.postMessage(document.getElementById('inputForWorker').value);
+}
+
+//initialize our handlers
+function init(){
+	var btnPostToWorker=document.getElementById('btnPostToWorker');
+	btnPostToWorker.addEventListener('click', postToWorker, false);
+}
+
+window.addEventListener('load', init, false);
+
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<p>Enter a text message for the worker thread (leave blank to have
+		worker return a message type of error):</p>
+	<input id='inputForWorker' />
+	<button id='btnPostToWorker'>Send to Worker</button>
+	<section id='workerResponse'></section>
+</body>
+</html>

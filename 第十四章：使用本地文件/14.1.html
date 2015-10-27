@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- 14.1 显示文件属性 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>14.1 Retrieving File Attributes</title>
+<script>
+//handle the file selected
+function handleFile(fileInput){
+	//reference our section to display the attributes
+	var fileAttributes = document.getElementById('fileAttributes');
+	
+	if(fileInput.files){
+		var file=fileInput.files[0];
+		
+		var output='File attributes:<br>';
+		output += 'name: '+file.name+'<br>';
+		output += 'type: '+file.type+'<br>';
+		output += 'size: '+(file.size/1024).toFixed(2)+ 'KB<br>';
+		output += 'last modified date: ' + file.lastModifiedDate;
+		
+		//set the outpur to the section
+		fileAttributes.innerHTML=output;
+	}else{
+		//files interfaces not supported by browser
+		fileAttributes.innerHTML = 'files interface not supported';
+	}
+}
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<h1>select File Below:</h1>
+	<section>
+		<input type='file' id='input' onchange="handleFile(this)"/>
+	</section>
+	<br>
+	<section id='fileAttributes'></section>
+</body>
+</html>

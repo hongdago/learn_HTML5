@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<!-- 12.6 创建客户页面容器 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>12.6 shareWorker Across pages</title>
+<!-- This is purely a container page to show multiple pages using a shared worker,This would
+perform the same if the pages were in separate tabs or windows in the same browser  -->
+<style>
+div {float:left;width:33.3%;height:500px}
+iframe {width:100%;height:100%}
+</style>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<div>Client Page 1<iframe src="12.7.html"></iframe></div>
+	<div>Client Page 2<iframe src="12.7.html"></iframe></div>
+	<div>Client Page 3<iframe src="12.7.html"></iframe></div>
+</body>
+</html>

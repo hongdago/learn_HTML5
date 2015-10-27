@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!-- 12.1  通过websocket发送和接受数据-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>page title</title>
+<script>
+//set up our global web socker reference
+var directorWebSocker = null;
+
+//assign our web socker listener address
+var wsUri="ws://echo.websocket.org";
+
+//create web socker connection on page load
+function init(){
+	//add the button event handlers
+	var btnSend=document.getElementById('btnSend');
+	var btnClose=document.getElementById('btnClose');
+	
+	btnSend.addEventListener('click', postMessage, false);
+	btnClose.addEventListener('click',closeWS, false);
+	
+	
+	updateStatus('initializing websocket connection');
+	
+	//create the web socker instance with the listener address
+	directorWebSocket = new WebSocket(wsUri);
+	
+	//set up our handler function for the web socker events
+	directorWebSocket.onopen=function(evt){onOpen(evt)};
+	directorWebSocket.onclose=function(evt){onClose(evt)};
+	directorWebSocket.onmessage=function(evt){onMessage(evt)};
+	directorWebSocket.onerror=function(evt){onError(evt)};
+}
+
+function onOpen(evt){
+	console.log('Director Connection open');
+	updateStatus('Connection open');
+}
+
+function onMessage(evt){
+	console.log('Reveived Message: '+evt.data);
+	updateStatus('message reveived: '+evt.data);
+	document.getElementById('message').innerHTML=evt.data;
+}
+
+function onError(evt){
+	console.log('Director Connection error: '+evt.data);
+	updateStatus('error: '+evt.data);
+}
+
+function  onClose(evt){
+	console.log('Director Connection closed.');
+	updateStatus('connection closed.');
+}
+
+//client functions
+//send message through web socker connection
+function postMessage(){
+	//get the message from the input
+	msg=document.getElementById('msg').value;
+	
+	console.log('sending ws message: '+msg);
+	updateStatus('sending message: '+msg);
+	
+	//use send() to sned the message
+	directorWebSocket.send(msg);
+}
+
+function closeWS(){
+	console.log('disconnecting ws');
+	updateStatus('disconnecting');
+	
+	//tell the web socker instance to close the connection
+	directorWebSocket.close();
+}
+
+//helper function to change the status of the web socket
+function updateStatus(msg){
+	document.getElementById('wsState').innerHTML=msg;
+}
+
+//add page load event listener to kick off init function
+window.addEventListener('load', init, false);
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<div id="btnTryCall">
+		<input type="text" id="msg" />
+		<button id='btnSend'>Send Message</button>
+		<button id='btnClose'>Close Web Socker</button>
+	</div>
+	<div id='wsState'></div>
+	<div id='message'></div>
+</body>
+</html>

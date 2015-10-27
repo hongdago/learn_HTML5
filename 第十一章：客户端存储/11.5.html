@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<!-- 11.5 在本地存储中保存笔记  -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>11.5 Storing Notes in Local Storage</title>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	padding: 20px;
+}
+
+h1 {
+	font-size: 120%;
+	margin: 0 0 .5em;
+}
+
+section {
+	width: 300px;
+}
+
+#noteBoard, textarea {
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-moz-box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
+	-webkit-box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
+	box-shadow: 0px 0px 4px rgba(0, 0, 0, .4);
+}
+
+#noteBoard {
+	background: #FCFABA;
+	float: right;
+	padding: 10px 20px;
+}
+
+#noteBoard div {
+	border-bottom: 1px dashed #ccc;
+	margin: 0 0 5px;
+	padding: 5px 0;
+	width: 100%;
+}
+
+#noteBoard div.buttons {
+	border: none;
+}
+
+#addNote, #updateNote {
+	float: left;
+}
+
+#addNote {
+	border-right: 1px dashed #ccc;
+	margin: 0 50px 0 0;
+	padding: 0 50px 0 0;
+}
+
+#updateNote {
+	display: none;
+}
+
+textarea {
+	border: none;
+	clear: both;
+	height: 150px;
+	margin: 0 0 10px;
+	padding: 10px;
+	width: 280px;
+	height: 150px;
+}
+
+input[type="text"] {
+	margin: 0 0 10px;
+	padding: 4px;
+}
+
+button {
+	padding: 5px;
+}
+</style>
+<script>
+	//note prefix for storage entries
+	var keyCode = 'note';
+
+	function initNoteBoard() {
+		//set our listener for storage changes
+		window.addEventListener('storage', onStorageEvent, false);
+
+		//set listeners for new and update note
+		var btnAddNote = document.getElementById('btnAddNote');
+		var btnUpdateNote = document.getElementById('btnUpdateNote');
+		btnAddNote.addEventListener('click', addNote, false)
+		btnUpdateNote.addEventListener('click', updateNote, false);
+
+		//update the display
+		updateNoteBoard();
+	}
+
+	//our storage event handler
+	function onStorageEvent(eventObj) {
+		if (eventObj.storageArea == localStorage) {
+			//alert visitor of change
+			alert(eventObj.key + ' changed from "' + eventObj.oldValue
+					+ '" to "' + enentObj.newValue + '".');
+			updateNoteBoard();
+		}
+	}
+	
+	//add a note function
+	function addNote(){
+		//retrieve the number of notes we hava
+		var numNotes =parseInt(localStorage.getItem('numNotes'));
+		if(isNaN(numNotes)){
+			numNotes=0;
+		}
+		//set our key and value
+		var noteKey = keyCode+numNotes;
+		var noteValue=document.getElementById('note').value;
+		
+		//set our note
+		localStorage.setItem(noteKey,noteValue);
+		
+		//update the number of notes
+		numNotes++;
+		localStorage.setItem('numNotes',numNotes);
+		
+		//update our note board
+		updateNoteBoard();
+		
+		//reset our note Entry
+		document.getElementById('note').value='';
+	}
+	
+	//function to load the note to be updated
+	function changeNote(noteKey){
+		//set our key and value in  the update form
+		document.getElementById('oldKey').value=noteKey;
+		document.getElementById('oldNote').value=localStorage.getItem(noteKey);
+		
+		//show our update note area
+		document.getElementById('updateNote').style.display='block';
+	}
+	
+	//function to update the note
+	function updateNote(){
+		//retrieve our new values for the note
+		var key =document.getElementById('oldKey').value;
+		var note=document.getElementById('oldNote').value;
+		
+		//update the key/value pair
+		localStorage.setItem(key,note);
+		
+		//clear our update area
+		document.getElementById('updateNote').style.display='none';
+		document.getElementById('oldKey').value='';
+		document.getElementById('oldNote').value='';
+
+		//update our display
+		updateNoteBoard();
+	}
+	
+	function removeNote(noteKey){
+		//retrieve our number of notes
+		var numNotes =parseInt(localStorage.getItem('numNotes'));
+		//extract our key index form the note key
+		keyIdx=parseInt(noteKey.substring(keyCode.length,noteKey.length));
+		
+		//loop through notes and move each down the list
+		for(var i=keyIdx;i<numNotes;i++){
+			localStorage.setItem(keyCode+i, localStorage.getItem(keyCode+(i+1)));
+		}
+		//update our number of notes
+		numNotes--;
+		localStorage.setItem('numNotes',numNotes)
+		
+		//remove the last note that is now a duplicate
+		localStorage.removeItem(keyCode+numNotes);
+		
+		//update our display
+		updateNoteBoard();
+	}
+	
+	//function to remoce all notes
+	function clearAllNotes(){
+		//retrieve the num of notes
+		var numNotes=parseInt(localStorage.getItem('numNotes'));
+		if(isNaN(numNotes)){
+			numNotes=0;
+		}
+		
+		//loor the through note key/value pairs and remove
+		for(var i =0 ; i<numNotes; i++){
+			localStorage.removeItem(keyCode+i);
+		}
+		
+		//update our number of notes to 0
+		localStorage.setItem('numNotes','0');
+		
+		//update the display
+		updateNoteBoard();
+	}
+	
+	//display our notes
+	function updateNoteBoard(){
+		//set our display area
+		var noteBoard=document.getElementById('noteBoard');
+		
+		//retrieve our number of notes
+		var numNotes=parseInt(localStorage.getItem('numNotes'));
+		//set defaule to 0 if no notes
+		if(isNaN(numNotes)){
+			numNotes=0;
+		}
+		
+		var notes= '<div>My Notes:</div>';
+		var key='';
+		var value='';
+		//loop through the notes
+		for(var i =0 ; i<numNotes; i++){
+			
+			key=keyCode+i;
+			value=localStorage.getItem(key);
+			
+			//build our dislay for this note
+			notes += '<div><p>'+value+'</p><div class="buttons">'+
+				'<button onclick="changeNote(\''+key+'\');">Change</button>'+
+				'<button onclick="removeNote(\''+key+'\');">Remove</button>'+
+				'</div>'+
+				'</div>';
+		}
+		
+		//finish off our display
+		notes +='<div style="float: right;"><button id="clearAllNotes">Remove All Notes</button></div>';
+		//set the list to the display
+		noteBoard.innerHTML=notes;
+		
+		//set listener for clearing all notes
+		var btnClearAllNotes = document.getElementById('clearAllNotes');
+		btnClearAllNotes.addEventListener('click',clearAllNotes,false);
+	}
+	
+	//initial our note board
+	window.addEventListener('load',initNoteBoard,false);
+</script>
+</head>
+<body>
+	<h1>Note Board</h1>
+	<section id="noteBoard"></section>
+	<section id="addNote">
+		<h1>Add a new note here:</h1>
+		<textarea name="note" id="note"></textarea>
+		<button id="btnAddNote">Add Note</button>
+	</section>
+	<section id="updateNote">
+		<h1>Update the note</h1>
+		<input type="text" name="oldKey" id="oldKey" disabled />
+		<textarea name="oldNote" id="oldNote"></textarea>
+		<button id="btnUpdateNote">Update Note</button>
+	</section>
+</body>
+</html>

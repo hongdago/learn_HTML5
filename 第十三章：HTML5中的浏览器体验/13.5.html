@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!-- 13.5 使用createNotification方法显示通知 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>13.5 Basic Notification</title>
+<script>
+	//counter for notifications
+	var notificationCount = 0;
+
+	//inintialize the page
+	function init() {
+		//refrence the buttons
+		var btnSetPermission = document.getElementById('setPermission');
+		var btnFireNotification = document.getElementById('fireNotification');
+
+		//set our button click event handlers
+		btnSetPermission.addEventListener('click', setPermission, false);
+		btnFireNotification.addEventListener('click', fireNotification, false);
+	}
+
+	function setPermission() {
+		if (window.webkitNotifications) {
+			window.webkitNotifications.requestPermission();
+		} else {
+			alert('Notifications are not supported on this browser.');
+		}
+	}
+
+	function fireNotification() {
+		notificationCount++;
+		var notification = window.webkitNotifications.createNotification(
+				'icon_notification.png', 'Number ' + notificationCount,
+				'This is notification ' + notificationCount);
+		notification.show()
+	}
+
+	window.addEventListener('load', init, false);
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<h1>Basic Notification Recipe</h1>
+	<p>Click set permission to allow notification,then fire a
+		notification.</p>
+	<section>
+		<button id='setPermission'>Set Permission</button>
+		<button id='fireNotification'>Fire Notification</button>
+	</section>
+</body>
+</html>

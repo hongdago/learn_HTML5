@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!-- 12.2 向web worker发送消息 -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>12.2 simple web worker communication</title>
+<script>
+	//global reference to our web worker
+	var worker = null;
+	
+	//on page load start the web worker
+	function startWorkerThread(){
+		//add button event handlers
+		var btnTimeStamp=document.getElementById('btnTimeStamp');
+		var btnTerminateWorker=document.getElementById('btnTerminateWorker');
+		
+		btnTimeStamp.addEventListener('click',getTimeStamp,false);
+		btnTerminateWorker.addEventListener('click', terminateWorker, false);
+		
+		//create the web worker instance
+		worker = new Worker('12.3.js');
+		//assign handler for receiving messages from web worker
+		worker.onmessage=function(event){
+			//display the message in our result field
+			document.getElementById('result').textContent=event.data;
+		};
+	}
+	
+	//handler the button to terminate the web worker
+	function terminateWorker(){
+		worker.terminate();
+	}
+	
+	//local thread to time stamp and show how main thread is 
+	//not blocker calculations going on
+	function getTimeStamp(){
+		var currentDateTime=new Date();
+		document.getElementById('timeLog').innerHTML +=currentDateTime+'<br>'
+	}
+	
+	window.addEventListener('load', startWorkerThread, false);
+</script>
+</head>
+<body>
+	<!-- new HTML5 elements are going to go here :) -->
+	<p>
+		Computing
+		<output id="result"></output>
+	</p>
+	<button id='btnTimeStamp'>Time Stamp</button>
+	<button id='btnTerminateWorker'>Terminate Worker</button>
+	<section id='timeLog'></section>
+</body>
+</html>
